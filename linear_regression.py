@@ -8,8 +8,7 @@ class LinearRegression:
         self._model = (0.0, 0.0)
         self._diagnostics = 0
 
-    def fit(self, x, y, alpha=0.1):
-        bound = 0
+    def fit(self, x, y, alpha=0.1, tol=0):
         th0 = 0.0
         th1 = 0.0
         m = len(x)
@@ -22,7 +21,7 @@ class LinearRegression:
             temp1 = th1 - np.sum(error * x) * beta
             diff0 = abs(temp0 - th0)
             diff1 = abs(temp1 - th1)
-            converged = diff0 <= bound and diff1 <= bound
+            converged = diff0 <= tol and diff1 <= tol
             th0 = temp0
             th1 = temp1
             iteration += 1
