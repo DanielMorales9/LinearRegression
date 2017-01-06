@@ -14,7 +14,7 @@ def simple_linear_regression(x, y, alpha=0.1):
     beta = alpha / m
     iter = 0
     converged = False
-    while not converged
+    while not converged:
         error = (th0 + th1 * x) - y
         temp0 = th0 - np.sum(error) * beta
         temp1 = th1 - np.sum(error * x) * beta
