@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from multivariate_linear_regression import MultivariateLinearRegression
 from linear_regression import LinearRegression
 
 
@@ -20,3 +21,9 @@ clf.fit(x, y, alpha=0.01)
 line = clf.predict(line)
 print clf.get_diagnostics()
 plot_prediction(x, y, line)
+
+data = np.array([[1, 2, 3], [2, 4, 6], [3, 6, 9]])
+target = np.array([1, 2, 3])
+clf = MultivariateLinearRegression()
+clf.fit(data, target, alpha=0.01)
+print clf.predict(np.array([4, 8, 12]))
