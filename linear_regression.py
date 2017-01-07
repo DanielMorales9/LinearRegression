@@ -10,6 +10,7 @@ class LinearRegression:
             Cons:
                 | 1. Need to choose alpha
                 | 2. Need to iterate
+                | 3. Need Feature Scaling
 
           """
 

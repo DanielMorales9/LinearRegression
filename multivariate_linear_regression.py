@@ -12,6 +12,7 @@ class MultivariateLinearRegression(LinearRegression):
             Cons:
                 | 1. Need to choose alpha
                 | 2. Need to iterate
+                | 3. Need Feature Scaling
     """
 
     def __init__(self, feature_scaling="auto"):

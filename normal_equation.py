@@ -8,6 +8,7 @@ class NormalEquation:
             Pros:
                 | 1. No need to choose alpha
                 | 2. Don't need to iterate
+                | 3. No need for Feature Scaling
 
             Cons:
                 | 1. Need to compute the inverse X^T * X which is O(n^3)
