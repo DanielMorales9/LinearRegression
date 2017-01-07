@@ -4,6 +4,9 @@ from linear_regression import LinearRegression
 
 class MultivariateLinearRegression(LinearRegression):
 
+    def __init__(self):
+        self.j_value = []
+
     def fit(self, x, y, alpha=0.1, tol=0):
         xn = np.ones((x.shape[0], x.shape[1]+1))
         xn[:, 1:] = x
@@ -15,6 +18,7 @@ class MultivariateLinearRegression(LinearRegression):
         converged = False
         while not converged:
             error = np.dot(xn, th) - y
+            # self.pick_value_of_j(np.sum(error**2)*beta, iteration)
             temp = th - beta * np.dot(error.T, xn)
             diff = abs(temp - th) <= tol
             converged = np.all(diff)
@@ -33,3 +37,6 @@ class MultivariateLinearRegression(LinearRegression):
             xn = np.ones(x.shape[0]+1)
             xn[1:] = x
         return np.dot(xn, th)
+
+    def pick_value_of_j(self, j, iteration):
+        self.j_value.append([j, iteration])
