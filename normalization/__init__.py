@@ -1,4 +1,4 @@
 from .normalization import MeanNormalization
-from .normalization import StdDeviationNormalization
+from .normalization import ZScoreNormalization
 
-__all__ = ["MeanNormalization", "StdDeviationNormalization"]
+__all__ = ["MeanNormalization", "ZScoreNormalization"]

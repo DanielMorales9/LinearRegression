@@ -30,6 +30,8 @@ class MeanNormalization(Normalization):
             feature_max = np.amax(x, axis=0)
             feature_min = np.amin(x, axis=0)
             self.feature_range = feature_max - feature_min
+
+            # this will prevent division by zero for features with no range
             self.feature_range[feature_max == feature_min] = 1
 
         xn = x - self.feature_mean
@@ -42,10 +44,10 @@ class MeanNormalization(Normalization):
         self.feature_mean = None
 
 
-class StdDeviationNormalization(Normalization):
+class ZScoreNormalization(Normalization):
 
     def __init__(self):
-        super(StdDeviationNormalization, self).__init__()
+        super(ZScoreNormalization, self).__init__()
         self.feature_range = None
         self.feature_mean = None
 
@@ -53,11 +55,11 @@ class StdDeviationNormalization(Normalization):
         if self.feature_mean is None:
             feature_mean = np.mean(x, axis=0)
 
-        if self.feature_mean is None:
+        if self.feature_range is None:
             self.feature_range = np.std(x, axis=0)
 
-            if self.feature_range == 0:
-                self.feature_range = 1
+            # this will prevent division by zero for features with no std
+            self.feature_range[self.feature_range == 0] = 1
 
         xn = x - self.feature_mean
         xn /= self.feature_range

@@ -9,8 +9,8 @@ class NormalEquation:
         self._model = None
         if feature_scaling == "mean":
             self.fs = MeanNormalization()
-        elif feature_scaling == "std":
-            self.fs = StdDeviationNormalization()
+        elif feature_scaling == "zscore":
+            self.fs = ZScoreNormalization()
         else:
             self.fs = MeanNormalization()
 

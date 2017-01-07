@@ -64,7 +64,7 @@ data = data.T
 target = np.array([460, 232, 315, 178])
 clf = NormalEquation()
 clf.fit(data, target)
-test = np.array([800, 2, 1, 20])
+test = np.array([2000, 6, 1, 50])
 print "The House with size {} (feet)," \
       " {} bedrooms, {} floor," \
       " age of home {} (years)" \
