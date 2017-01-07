@@ -34,6 +34,7 @@ class MeanNormalization(Normalization):
         :return: xs: {array-like, sparse matrix}, shape = (n_samples, n_features)
             Scaled Training set.
         """
+
         if self.feature_mean is None:
             self.feature_mean = np.mean(x, axis=0)
         if self.feature_range is None:
@@ -43,7 +44,10 @@ class MeanNormalization(Normalization):
             self.feature_range = feature_max - feature_min
 
             # this will prevent division by zero for features with no range
-            self.feature_range[feature_max == feature_min] = 1
+            if len(x.shape) > 1:
+                self.feature_range[feature_max == feature_min] = 1
+            elif feature_max == feature_min:
+                self.feature_range = 1
 
         xn = x - self.feature_mean
         xn /= self.feature_range
@@ -81,7 +85,10 @@ class ZScoreNormalization(Normalization):
             self.feature_range = np.std(x, axis=0)
 
             # this will prevent division by zero for features with no std
-            self.feature_range[self.feature_range == 0] = 1
+            if len(x.shape) > 1:
+                self.feature_range[self.feature_range == 0] = 1
+            elif self.feature_range == 0:
+                self.feature_range = 1
 
         xn = x - self.feature_mean
         xn /= self.feature_range

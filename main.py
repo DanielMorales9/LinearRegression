@@ -26,9 +26,6 @@ clf = LinearRegression()
 
 clf.fit(x, y, alpha=0.01)
 line = clf.predict(line)
-#print clf.get_diagnostics()
-#plot_prediction(x, y, line)
-
 
 # ---> Multivariate Linear Regression Demonstration <---
 print "\n---> Multivariate Linear Regression Demonstration <---\n"
@@ -70,3 +67,5 @@ print "The House with size {} (feet)," \
       " age of home {} (years)" \
       " will cost: {} ($1000)"\
     .format(test[0], test[1], test[2], test[3], clf.predict(test))
+
+plot_prediction(x, y, line)

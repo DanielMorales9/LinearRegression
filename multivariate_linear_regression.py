@@ -1,5 +1,6 @@
 import numpy as np
 from linear_regression import LinearRegression
+from normalization import *
 
 
 class MultivariateLinearRegression(LinearRegression):
@@ -13,11 +14,16 @@ class MultivariateLinearRegression(LinearRegression):
                 | 2. Need to iterate
     """
 
-    def __init__(self):
-        super(MultivariateLinearRegression, self).__init__()
+    def __init__(self, feature_scaling="auto"):
         self.j_value = []
+        if feature_scaling == "mean":
+            self.fs = MeanNormalization()
+        elif feature_scaling == "zscore":
+            self.fs = ZScoreNormalization()
+        else:
+            self.fs = MeanNormalization()
 
-    def fit(self, x, y, alpha=0.1, tol=0):
+    def fit(self, x, y, alpha=0.1, tol=0, scale_feature=True):
         """
               Fits a linear model (Theta) on training data
 
@@ -29,9 +35,15 @@ class MultivariateLinearRegression(LinearRegression):
                   Learning rate
               :param tol: float
                   tollerance of convergence value
+              :param scale_feature: flag for feature scaling
               :return self:  returns an instance of self.
 
               """
+
+        self.fs.flush()
+        if scale_feature:
+            x = self.fs.scale(x)
+
         xn = np.ones((x.shape[0], x.shape[1]+1))
         xn[:, 1:] = x
 
@@ -52,7 +64,7 @@ class MultivariateLinearRegression(LinearRegression):
         self._model = th
         return self
 
-    def predict(self, x):
+    def predict(self, x, scale_feature=True):
         """
         Predict using the linear model
 
@@ -63,6 +75,8 @@ class MultivariateLinearRegression(LinearRegression):
                   Returns predicted values.
 
         """
+        if scale_feature:
+            x = self.fs.scale(x)
         th = self._model
         # checks whether the example to predict is a vector or a matrix
         if len(x.shape) > 1:
