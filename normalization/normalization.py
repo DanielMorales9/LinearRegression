@@ -6,23 +6,34 @@ class Normalization:
     __metaclass__ = ABCMeta
 
     def __init__(self):
-        pass
+        self.feature_range = None
+        self.feature_mean = None
 
     @abstractmethod
     def scale(self, x): pass
 
-    @abstractmethod
-    def flush(self): pass
-
-
-class MeanNormalization(Normalization):
-
-    def __init__(self):
-        super(MeanNormalization, self).__init__()
+    def flush(self):
         self.feature_range = None
         self.feature_mean = None
 
+
+class MeanNormalization(Normalization):
+    """
+    Mean Normalization algorithm
+    """
+
+    def __init__(self):
+        super(MeanNormalization, self).__init__()
+
+
     def scale(self, x):
+        """
+        Scales the training set by subtracting the mean value and dividing by the range of value of each feature
+        :param x: {array-like, sparse matrix}, shape = (n_samples, n_features)
+            Training set.
+        :return: xs: {array-like, sparse matrix}, shape = (n_samples, n_features)
+            Scaled Training set.
+        """
         if self.feature_mean is None:
             self.feature_mean = np.mean(x, axis=0)
         if self.feature_range is None:
@@ -40,18 +51,29 @@ class MeanNormalization(Normalization):
         return xn
 
     def flush(self):
+        """
+         Flushes training set statistics
+        """
         self.feature_range = None
         self.feature_mean = None
 
 
 class ZScoreNormalization(Normalization):
+    """
+    ZScore Normalization Algorithm
+    """
 
     def __init__(self):
         super(ZScoreNormalization, self).__init__()
-        self.feature_range = None
-        self.feature_mean = None
 
     def scale(self, x):
+        """
+        Scales the training set by subtracting the mean value and dividing by the standard deviation
+            :param x: {array-like, sparse matrix}, shape = (n_samples, n_features)
+                   Training set.
+            :return: xs: {array-like, sparse matrix}, shape = (n_samples, n_features)
+                   Scaled Training set.
+        """
         if self.feature_mean is None:
             feature_mean = np.mean(x, axis=0)
 
@@ -65,7 +87,3 @@ class ZScoreNormalization(Normalization):
         xn /= self.feature_range
 
         return xn
-
-    def flush(self):
-        self.feature_range = None
-        self.feature_mean = None
