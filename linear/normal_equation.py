@@ -32,8 +32,7 @@ class NormalEquation:
 
         """
 
-        xn = np.ones((x.shape[0], x.shape[1] + 1))
-        xn[:, 1:] = x
+        xn = self.reshape_training_set(x)
         xtx = np.dot(xn.T, xn)
         inverse = inv(xtx)
         self._model = np.dot(inverse, np.dot(xn.T, y))
@@ -57,3 +56,14 @@ class NormalEquation:
             xn = np.ones(x.shape[0] + 1)
             xn[1:] = x
         return np.dot(xn, th)
+
+    @staticmethod
+    def reshape_training_set(x):
+        if len(x.shape) > 1:
+            xn = np.ones((x.shape[0], x.shape[1]+1))
+            xn[:, 1:] = x
+        else:
+            xn = np.ones((x.shape[0], 2))
+            xn[:, 1] = x
+
+        return xn
