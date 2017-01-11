@@ -10,7 +10,7 @@ class LogisticRegression:
     def __init__(self):
         self._model = None
 
-    def fit(self, x, y, alpha=0.1, tol=0, scale_feature=True):
+    def fit(self, x, y, alpha=0.1, tol=0):
         """
         Fits a regression model (Theta) on training data
 
