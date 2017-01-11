@@ -1,6 +1,12 @@
-# Linear Regression
+# Machine Learning Suite
+Simple machine learing algorithm.
 
-1. Simple Linear Regression
-2. Multivariate Linear Regression
-_both with Gradient Descent Algorithm_
-3. Normal Equation
+### Regression
+
+1. Multivariate Linear Regression
+_with Gradient Descent Algorithm_
+2. Normal Equation
+
+### Classification
+
+1. Logistic Regression
