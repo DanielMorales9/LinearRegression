@@ -25,7 +25,6 @@ class MeanNormalization(Normalization):
     def __init__(self):
         super(MeanNormalization, self).__init__()
 
-
     def scale(self, x):
         """
         Scales the training set by subtracting the mean value and dividing by the range of value of each feature
@@ -53,13 +52,6 @@ class MeanNormalization(Normalization):
         xn /= self.feature_range
 
         return xn
-
-    def flush(self):
-        """
-         Flushes training set statistics
-        """
-        self.feature_range = None
-        self.feature_mean = None
 
 
 class ZScoreNormalization(Normalization):

@@ -1,11 +1,14 @@
 import numpy as np
+from abc import ABCMeta, abstractmethod
 
 class LinearRegression(object):
+    __metaclass__ = ABCMeta
 
     def __init__(self):
         self._model = None
         self.j_history = None
 
+    @abstractmethod
     def fit(self, x, y):
         """
         Fits a regression model (Theta) on training data
@@ -18,6 +21,7 @@ class LinearRegression(object):
     """
         pass
 
+    @abstractmethod
     def predict(self, x):
         """
         Predict using the regression model
