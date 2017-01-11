@@ -2,10 +2,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
-from linear import MultivariateGradientDescent as MGD
+from regression import MultivariateLinearRegression as MGD
 
 
-class Chart(object):
+class LinearRegressionChart(object):
 
     def __init__(self, X, y):
         self.X = X
@@ -34,7 +34,7 @@ class Chart(object):
         plt.title('Convergence Chart')
 
     def create_surface(self, theta0, theta1):
-        j, x, y = self._create_space(theta0, theta1)
+        j, x, y = self._compute_cost_by_theta(theta0, theta1)
 
         fig = plt.figure()
         ax = fig.add_subplot(111, projection='3d')
@@ -47,21 +47,19 @@ class Chart(object):
         plt.title('Surface plot')
 
     def create_contour(self, theta0, theta1):
-        z, x, y = self._create_space(theta0, theta1)
+        z, x, y = self._compute_cost_by_theta(theta0, theta1)
 
         plt.figure()
         cs = plt.contour(x, y, z)
         plt.clabel(cs, inline=1, fontsize=10)
-        xlabel = "${\Theta}_0$"
-        ylabel = "${\Theta}_1$"
-        plt.xlabel(xlabel)
-        plt.ylabel(ylabel)
+        plt.xlabel(r"${\Theta}_0$")
+        plt.ylabel(r"${\Theta}_1$")
         plt.title('Contour plot')
 
     def show(self):
         plt.show()
 
-    def _create_space(self, theta0, theta1):
+    def _compute_cost_by_theta(self, theta0, theta1):
         X = MGD.reshape_training_set(self.X)
         x = np.arange(-5, 5, 0.25)
         y = np.arange(-5, 5, 0.25)

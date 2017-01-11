@@ -1,8 +1,9 @@
 import numpy as np
 from normalization import *
+from .linear_regression import LinearRegression
 
 
-class MultivariateGradientDescent():
+class MultivariateLinearRegression(LinearRegression):
     """
         Multivariate Linear Regression with Gradient Descent
             Pros:
@@ -15,6 +16,7 @@ class MultivariateGradientDescent():
     """
 
     def __init__(self, feature_scaling="auto"):
+        super(MultivariateLinearRegression, self).__init__()
         if feature_scaling == "mean":
             self.fs = MeanNormalization()
         elif feature_scaling == "zscore":
@@ -22,12 +24,9 @@ class MultivariateGradientDescent():
         else:
             self.fs = MeanNormalization()
 
-        self._model = None
-        self.j_history = None
-
     def fit(self, x, y, alpha=0.1, tol=0, scale_feature=True):
         """
-              Fits a linear model (Theta) on training data
+              Fits a regression model (Theta) on training data
 
               :param x: numpy array or sparse matrix of shape [n_samples, n_features]
                   Training data
@@ -66,9 +65,9 @@ class MultivariateGradientDescent():
 
         return self
 
-    def fit(self, x, y, alpha, iterations, scale_feature=True, compute_cost=True):
+    def fit(self, x, y, alpha, iterations, scale_feature=True):
         """
-              Fits a linear model (Theta) on training data
+              Fits a regression model (Theta) on training data
 
               :param x: numpy array or sparse matrix of shape [n_samples, n_features]
                   Training data
@@ -111,7 +110,7 @@ class MultivariateGradientDescent():
 
     def predict(self, x, scale_feature=True):
         """
-        Predict using the linear model
+        Predict using the regression model
 
             :param x: {array-like, sparse matrix}, shape = (n_samples, n_features)
                   Samples.
@@ -131,23 +130,3 @@ class MultivariateGradientDescent():
             xn = np.ones(x.shape[0]+1)
             xn[1:] = x
         return np.dot(xn, th)
-
-    @staticmethod
-    def reshape_training_set(x):
-        if len(x.shape) > 1:
-            xn = np.ones((x.shape[0], x.shape[1]+1))
-            xn[:, 1:] = x
-        else:
-            xn = np.ones((x.shape[0], 2))
-            xn[:, 1] = x
-
-        return xn
-
-    @staticmethod
-    def compute_cost(X, y, theta):
-        m = len(X)
-        h = np.dot(X, theta) - y
-        h **= 2
-        error = np.sum(h)
-        error /= 2 * m
-        return error
