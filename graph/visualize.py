@@ -2,24 +2,24 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
-from regression import MultivariateLinearRegression as MGD
+from regression import MultivariateLinearRegression as mlr
 
 
-class LinearRegressionChart(object):
+class Chart(object):
 
     def __init__(self, X, y):
         self.X = X
         self.y = y
 
-    def create_convergence(self, alpha, stop_alpha=None, step_alpha=0.3, iterations=100):
+    def create_convergence(self, clf, alpha, stop_alpha=None,
+                           step_alpha=0.3, iterations=100):
         if stop_alpha is None:
             alphas = np.array([alpha])
         else:
             alphas = np.arange(alpha, stop_alpha, step_alpha)
 
-        clf = MGD()
-        values = \
-            [clf.fit(self.X, self.y, a, iterations).j_history for a in alphas]
+        values = [clf.fit_model(self.X, self.y, a, iterations).j_history
+                  for a in alphas]
 
         plt.figure()
         it = np.arange(iterations)
@@ -60,7 +60,7 @@ class LinearRegressionChart(object):
         plt.show()
 
     def _compute_cost_by_theta(self, theta0, theta1):
-        X = MGD.reshape_training_set(self.X)
+        X = mlr.reshape_training_set(self.X)
         x = np.arange(-5, 5, 0.25)
         y = np.arange(-5, 5, 0.25)
         z = np.zeros((len(x), len(y)))
@@ -71,7 +71,7 @@ class LinearRegressionChart(object):
             for k in in1:
                 theta[theta0] = x[i]
                 theta[theta1] = y[k]
-                z[i, k] = MGD.compute_cost(X, self.y, theta)
+                z[i, k] = mlr.compute_cost(X, self.y, theta)
 
         x, y = np.meshgrid(x, y)
         return z, x, y

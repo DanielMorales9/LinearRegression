@@ -1,6 +1,7 @@
 import numpy as np
 from abc import ABCMeta, abstractmethod
 
+
 class LinearRegression(object):
     __metaclass__ = ABCMeta
 
@@ -18,7 +19,7 @@ class LinearRegression(object):
         :param y: numpy array of shape (n_samples,)
             Target values
         :return self:  returns an instance of self.
-    """
+        """
         pass
 
     @abstractmethod

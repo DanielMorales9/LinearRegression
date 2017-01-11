@@ -1,3 +1,3 @@
-from .visualize import LinearRegressionChart
+from .visualize import Chart
 
-__all__ = ["LinearRegressionChart"]
+__all__ = ["Chart"]

@@ -1,7 +1,7 @@
 import numpy as np
 
 
-class LogisticRegression:
+class LogisticRegression(object):
     """
     Logistic Regression is a classification algorithm based on gradient descent
 
@@ -9,6 +9,7 @@ class LogisticRegression:
 
     def __init__(self):
         self._model = None
+        self._j_history = None
 
     def fit(self, x, y, alpha=0.1, tol=0):
         """
@@ -49,6 +50,45 @@ class LogisticRegression:
 
         return self
 
+    def fit_model(self, x, y, alpha, iterations):
+        """
+            Fits a regression model (Theta) on training data
+
+              :param x: numpy array or sparse matrix of shape [n_samples, n_features]
+                  Training data
+              :param y: numpy array of shape (n_samples,)
+                  Target values
+              :param alpha: float
+                  Learning rate
+              :param iterations: int
+                  number of iterations
+              :return self:  returns an instance of self.
+
+        """
+        x = self.reshape_training_set(x)
+
+        th = np.zeros(x.shape[1])
+        m = len(x)
+        beta = alpha / m
+        i = 0
+
+        j_history = np.zeros(iterations)
+
+        while i < iterations:
+            z = np.dot(x, th)
+            g = 1
+            g /= (1 + np.power(np.e, -z))
+            g -= y
+            th -= beta * np.dot(x.T, g)
+
+            j_history[i] = self.compute_cost(x, y, th)
+            i += 1
+
+        self._j_history = j_history
+        self._model = th
+
+        return self
+
     def predict(self, x):
         """
         Predict using logistic regression
@@ -68,6 +108,22 @@ class LogisticRegression:
             xn = np.ones(x.shape[0]+1)
             xn[1:] = x
         return np.dot(xn, th) >= 0
+
+    @property
+    def model(self):
+        return self._model
+
+    @model.setter
+    def model(self, value):
+        self._model = value
+
+    @property
+    def j_history(self):
+        return self._j_history
+
+    @j_history.setter
+    def j_history(self, value):
+        self._j_history = value
 
     @staticmethod
     def reshape_training_set(x):

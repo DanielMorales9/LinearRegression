@@ -65,9 +65,9 @@ class MultivariateLinearRegression(LinearRegression):
 
         return self
 
-    def fit(self, x, y, alpha, iterations, scale_feature=True):
+    def fit_model(self, x, y, alpha, iterations, scale_feature=True):
         """
-              Fits a regression model (Theta) on training data
+            Fits a regression model (Theta) on training data
 
               :param x: numpy array or sparse matrix of shape [n_samples, n_features]
                   Training data

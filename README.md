@@ -10,3 +10,4 @@ _with Gradient Descent Algorithm_
 ### Classification
 
 1. Logistic Regression
+2. Multiclass Classification _(One vs All)_
