@@ -53,7 +53,7 @@ class LinearRegression(object):
         return xn
 
     @staticmethod
-    def compute_cost(X, y, theta):
+    def compute_cost(X, y, theta, l=0):
         """
         Compute the Cost J given theta and training data
             :param X: numpy array or sparse matrix of shape [n_samples, n_features]
@@ -62,13 +62,32 @@ class LinearRegression(object):
                 Target values
             :param theta: numpy array of shape(n_samples,)
                 Linear Model
+            :param l: float, optional
+                Lambda value for Regularization term
             :return: j: float
                 Least Mean Square Cost
         """
-
         m = len(X)
         h = np.dot(X, theta) - y
         h **= 2
         error = np.sum(h)
         error /= 2 * m
+        error += l / (2.0 * m) * np.dot(theta.T, theta)
         return error
+
+    @property
+    def model(self):
+        return self._model
+
+    @model.setter
+    def model(self, value):
+        self._model = value
+
+    @property
+    def j_history(self):
+        return self._j_history
+
+    @j_history.setter
+    def j_history(self, value):
+        self._j_history = value
+

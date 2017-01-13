@@ -19,7 +19,7 @@ class NormalEquation(LinearRegression):
     def __init__(self):
         super(NormalEquation, self).__init__()
 
-    def fit(self, x, y):
+    def fit(self, x, y, l=0.0):
         """
         Fits a regression model (Theta) on training data
 
@@ -27,15 +27,20 @@ class NormalEquation(LinearRegression):
             Training data
         :param y: numpy array of shape [n_samples, n_targets]
             Target values
+        :param l: float, optional - default is zero
+            Lambda value for Regularization term
 
         :return self:  returns an instance of self.
 
         """
-
         xn = self.reshape_training_set(x)
         xtx = np.dot(xn.T, xn)
-        inverse = inv(xtx)
+        i = np.identity(xn.shape[1])
+        i *= l
+        i[0, 0] = 0
+        inverse = inv(xtx + i)
         self._model = np.dot(inverse, np.dot(xn.T, y))
+
         return self
 
     def predict(self, x):
@@ -53,6 +58,6 @@ class NormalEquation(LinearRegression):
             xn = np.ones((x.shape[0], x.shape[1] + 1))
             xn[:, 1:] = x
         else:
-            xn = np.ones(x.shape[0] + 1)
+            xn = np.ones(x.shape[0]+1)
             xn[1:] = x
         return np.dot(xn, th)

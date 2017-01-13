@@ -1,25 +1,30 @@
 import numpy as np
-#from graph.visualize import Chart
-from classification import *
+from graph.visualize import Chart
+from regression import *
 
 x = np.array([1, 2, 2, 3, 3, 4, 5, 6, 6, 6, 8, 10])
 
-l = np.array([2, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0])
-# data init
+y = np.array([0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0])
 y = np.array([-890, -1411, -1560, -2220, -2091, -2878, -3537, -3268, -3920, -4163, -5471, -5157])
 
-clf = MultiClassOneVsAll()
+clf1 = MultivariateLinearRegression()
+clf = FastMultivariateLinearRegression()
+print "Fast fitting"
+print clf.fit(x, y, l=0.1)
 
-clf.fit(x, l, alpha=0.31, tol=10**-4)
+print "Fast Prediction"
 print clf.predict(np.array([1]))
 
+X = clf1.reshape_training_set(x)
+print "Normal fitting"
+print clf1.fit(x, y, l=0.1).model, clf1.compute_cost(X, y, clf1.model, l=0.1)
+print "Normal Prediction"
+print clf1.predict(np.array([1]))
 
-l = np.array([0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1])
+X = np.array([[e] for e in x])
+plt = Chart(X, y)
+test = np.array([[e] for e in range(0, 10)])
+plt.create_visualization(clf, test)
 
-
-#plt = Chart(x.T, l)
-#plt.create_convergence(LogisticRegression(), 0.01, stop_alpha=1, iterations=10000)
-#plt.create_surface(0, 1)
-#plt.create_contour(0, 1)
-#plt.show()
-
+plt.create_visualization(clf1, test)
+plt.show()

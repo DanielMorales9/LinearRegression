@@ -24,22 +24,25 @@ class MultivariateLinearRegression(LinearRegression):
         else:
             self.fs = MeanNormalization()
 
-    def fit(self, x, y, alpha=0.1, tol=0, scale_feature=True):
+    def fit(self, x, y, alpha=0.1, l=0, tol=0, scale_feature=True):
         """
               Fits a regression model (Theta) on training data
 
               :param x: numpy array or sparse matrix of shape [n_samples, n_features]
-                  Training data
+                    Training data
               :param y: numpy array of shape (n_samples,)
-                  Target values
-              :param alpha: float
-                  Learning rate
-              :param tol: float
-                  tollerance of convergence value
-              :param scale_feature: flag for feature scaling
+                    Target values
+              :param alpha: float, default: 0.1
+                    Learning rate
+              :param l: float, optional - default is zero
+                    Lambda value for Regularization term
+              :param tol: float, default: 0
+                    Tollerance of convergence value
+              :param scale_feature: boolean, optional
+                    Flag for feature scaling, default is True
               :return self:  returns an instance of self.
 
-              """
+        """
 
         self.fs.flush()
         if scale_feature:
@@ -50,12 +53,11 @@ class MultivariateLinearRegression(LinearRegression):
         th = np.zeros(x.shape[1])
         m = len(x)
         beta = alpha / m
-
         converged = False
         while not converged:
             error = np.dot(x, th) - y
             temp = th - beta * np.dot(error.T, x)
-
+            temp[1:] += l * beta * th[1:]
             diff = abs(temp - th) <= tol
             converged = np.all(diff)
 
@@ -65,7 +67,7 @@ class MultivariateLinearRegression(LinearRegression):
 
         return self
 
-    def fit_model(self, x, y, alpha, iterations, scale_feature=True):
+    def fit_model(self, x, y, alpha, iterations, l=0.0, scale_feature=True):
         """
             Fits a regression model (Theta) on training data
 
@@ -77,6 +79,8 @@ class MultivariateLinearRegression(LinearRegression):
                   Learning rate
               :param iterations: int
                   number of iterations
+              :param l: float, optional - default is zero
+                  Lambda value for Regularization term
               :param scale_feature: flag for feature scaling
               :return self:  returns an instance of self.
 
@@ -98,9 +102,9 @@ class MultivariateLinearRegression(LinearRegression):
         while i < iterations:
             
             error = np.dot(x, th) - y
+            th[1:] = (1 - l * beta) * th[1:]
             th -= beta * np.dot(error.T, x)
-
-            j_history[i] = self.compute_cost(x, y, th)
+            j_history[i] = self.compute_cost(x, y, th, l)
             i += 1
 
         self.j_history = j_history
