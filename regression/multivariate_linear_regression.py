@@ -44,10 +44,10 @@ class MultivariateLinearRegression(LinearRegression):
 
         """
 
+
         self.fs.flush()
         if scale_feature:
             x = self.fs.scale(x)
-
         x = self.reshape_training_set(x)
 
         th = np.zeros(x.shape[1])

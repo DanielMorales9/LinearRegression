@@ -46,15 +46,21 @@ class Chart(object):
         plt.ylabel('theta 1')
         plt.title('Surface plot')
 
-    def create_contour(self, clf, theta0, theta1):
-        z, x, y = self._compute_cost_by_theta(clf, theta0, theta1)
+    def create_visualization3D(self, clf, test, axis1=0, axis2=1):
+        pred = clf.predict(test)
 
-        plt.figure()
-        cs = plt.contour(x, y, z)
-        plt.clabel(cs, inline=1, fontsize=10)
-        plt.xlabel(r"${\Theta}_0$")
-        plt.ylabel(r"${\Theta}_1$")
-        plt.title('Contour plot')
+        fig = plt.figure()
+        ax = fig.add_subplot(111, projection='3d')
+        x, y = np.meshgrid(test[:, axis1], test[:, axis2])
+        ax.plot_surface(x, y, pred,
+                        rstride=1, cstride=1, cmap=cm.coolwarm, linewidth=0)
+
+        ax.scatter(self.X[:, 0], self.X[:, 1], self.y, c='k', marker='o')
+        plt.xlabel('x{}'.format(axis1))
+        plt.ylabel('x{}'.format(axis2))
+        ax.set_zlabel('Prediction')
+
+        plt.title('Surface plot')
 
     def create_visualization(self, clf, test, axis=0):
         """
@@ -74,6 +80,17 @@ class Chart(object):
         plt.plot(test[:, axis], pred)
         plt.xlabel("x{}".format(axis))
         plt.ylabel("Target")
+
+
+    def create_contour(self, clf, theta0, theta1):
+        z, x, y = self._compute_cost_by_theta(clf, theta0, theta1)
+
+        plt.figure()
+        cs = plt.contour(x, y, z)
+        plt.clabel(cs, inline=1, fontsize=10)
+        plt.xlabel(r"${\Theta}_0$")
+        plt.ylabel(r"${\Theta}_1$")
+        plt.title('Contour plot')
 
     def show(self):
         plt.show()

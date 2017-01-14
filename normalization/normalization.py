@@ -47,7 +47,6 @@ class MeanNormalization(Normalization):
                 self.feature_range[feature_max == feature_min] = 1
             elif feature_max == feature_min:
                 self.feature_range = 1
-
         xn = x - self.feature_mean
         xn /= self.feature_range
 
