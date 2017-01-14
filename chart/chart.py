@@ -81,7 +81,6 @@ class Chart(object):
         plt.xlabel("x{}".format(axis))
         plt.ylabel("Target")
 
-
     def create_contour(self, clf, theta0, theta1):
         z, x, y = self._compute_cost_by_theta(clf, theta0, theta1)
 
