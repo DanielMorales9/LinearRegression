@@ -1,7 +1,13 @@
 import numpy as np
 
-
 class FeatureAugmentation:
+    """
+        Feature Augmentation is a class that adds to the training set
+        new feature by mapping them into all polynomial terms up to the nth power
+    """
+
+    def __init__(self):
+        pass
 
     @staticmethod
     def map(x, degree=2):

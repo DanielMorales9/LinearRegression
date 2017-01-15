@@ -1,6 +1,6 @@
 from utility import FeatureAugmentation
 import numpy as np
-from graph.visualize import Chart
+from chart.chart import Chart
 from regression import *
 '''
 x = np.array([[2, 3, 5], [2, 3, 5], [2, 3, 5]])

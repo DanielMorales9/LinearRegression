@@ -31,8 +31,8 @@ chart = cChart(X, y)
 
 X = FA.map(X, 2)
 clf = FastLogisticRegression()
-print clf.fit(X, y, l=1)[0]
+clf.fit(X, y, l=1)
 test, z = create_test(clf, 2, -1, 1.5, 50)
 
-chart.create_visualization(clf, test, z.T)
+chart.create_visualization(clf, test, z)
 chart.show()

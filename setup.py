@@ -12,5 +12,5 @@ setup(
     author_email='dnlmrls9@gmail.com',
     url='https://github.com/DanielMorales9/MLSuite',
     test_suite='nose.collector',
-    tests_require=['nose'], install_requires=['numpy']
+    tests_require=['nose'], install_requires=['numpy', 'matplotlib']
 )
