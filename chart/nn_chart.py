@@ -1,12 +1,12 @@
 import matplotlib.pyplot as plt
-from numpy import sqrt, floor, ceil, ones, reshape, arange
+from numpy import sqrt, floor, ceil, ones, reshape
 
 class NNChart():
 
     def __init__(self):
         pass
 
-    def display(self, x, width=None, order='F'):
+    def display(self, x, width=None, order='F', enable_max_val=False):
         if width is None:
             width = round(sqrt(x.shape[1]))
 
@@ -24,7 +24,11 @@ class NNChart():
             for j in range(display_cols):
                 if curr_ex > m:
                     break
-                max_val = max(abs(x[curr_ex,:]))
+                if enable_max_val:
+                    max_val = max(abs(x[curr_ex,:]))
+                else:
+                    max_val = 1
+
                 start_row = (pad*(i+1) + i * height)
                 stop_row = start_row + height
                 start_col = (pad*(j+1) + j*width)

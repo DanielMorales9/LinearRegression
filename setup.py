@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 with open('README.md') as f:
     readme = f.read()
@@ -11,5 +11,6 @@ setup(
     author='Daniel Morales',
     author_email='dnlmrls9@gmail.com',
     url='https://github.com/DanielMorales9/MLSuite',
-    install_requires=['numpy', 'matplotlib', 'scipy']
+    install_requires=['numpy', 'matplotlib', 'scipy'],
+    packages=find_packages(exclude=['demo*', 'tests'])
 )
