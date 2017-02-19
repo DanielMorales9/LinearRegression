@@ -1,3 +1,3 @@
-from feature_augmentation import FeatureAugmentation
+from utility.feature_augmentation import FeatureAugmentation
 
-___all__ = ["FeatureExtension"]
+___all__ = ["FeatureAugmentation"]

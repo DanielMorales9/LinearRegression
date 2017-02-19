@@ -106,12 +106,7 @@ class LogisticRegression(object):
         """
         th = self._model
         # checks whether the example to predict is a vector or a matrix
-        if len(x.shape) > 1:
-            xn = np.ones((x.shape[0], x.shape[1] + 1))
-            xn[:, 1:] = x
-        else:
-            xn = np.ones(x.shape[0] + 1)
-            xn[1:] = x
+        xn = self.reshape_training_set(x)
         return np.dot(xn, th) >= 0
 
     @property

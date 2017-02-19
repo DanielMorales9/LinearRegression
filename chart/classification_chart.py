@@ -9,7 +9,7 @@ class ClassificationChart(Chart):
     def __init__(self, x, y):
         super(ClassificationChart, self).__init__(x, y)
 
-    def create_visualization(self, clf, test, z, axis1=0, axis2=1, legend=["Y", "N"]):
+    def create_visualization3D(self, clf, test, z, axis1=0, axis2=1, legend=["Y", "N"]):
         # TODO To Check
         """
             Creates a 2D visualization of the training set along an axis

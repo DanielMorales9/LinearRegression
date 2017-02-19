@@ -32,7 +32,7 @@ class MultiClassOneVsAll(LogisticRegression):
             :param alpha: float
                 Learning rate
             :param tol: float
-                Tollerance of convergence value
+                Tolerance of convergence value
             :return self:
                 Returns an instance of self.
 

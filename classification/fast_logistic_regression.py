@@ -34,6 +34,13 @@ class FastLogisticRegression(LogisticRegression):
         return x, f
 
     def cost_function(self, theta):
+        """
+            Cost function computes the model's cost and gradient
+            :param theta: numpy array
+                Linear Model
+            :return: tuple: float, numpy array
+                cost and gradient array
+        """
         X = self.X
         y = self.y
         l = self.l

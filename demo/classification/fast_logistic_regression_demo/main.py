@@ -34,5 +34,5 @@ clf = FastLogisticRegression()
 clf.fit(X, y, l=1)
 test, z = create_test(clf, 2, -1, 1.5, 50)
 
-chart.create_visualization(clf, test, z)
+chart.create_visualization3D(clf, test, z)
 chart.show()
