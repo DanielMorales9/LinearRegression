@@ -13,3 +13,4 @@ _with Gradient Descent Algorithm_
 1. Logistic Regression
 2. Multiclass Classification _(One vs All)_
 3. Fast Logistic Regression _based on L\_BGFS optimization method_
+4. Neural Network _based on L\_BGFS optimization method_

@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
@@ -41,7 +42,6 @@ class Chart(object):
         plt.xlabel('theta 0')
         plt.ylabel('theta 1')
         plt.title('Surface plot')
-
 
     def show(self):
         """

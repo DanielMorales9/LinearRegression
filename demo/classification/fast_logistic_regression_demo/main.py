@@ -1,8 +1,9 @@
+import os
 from classification import FastLogisticRegression
 from chart import ClassificationChart as cChart
 from utility import FeatureAugmentation as FA
 import numpy as np
-
+path = os.path.dirname(os.path.abspath(__file__))
 
 def create_test(clf, degree, _min, step, _max):
     # create test data
@@ -22,8 +23,8 @@ def create_test(clf, degree, _min, step, _max):
             z[i, j] = np.dot(o, clf.model)
     return X, z
 
-data = np.loadtxt('/Users/Daniel/PycharmProjects/MLSuite/demo/classification'
-                  '/fast_logistic_regression_demo/ex2data2.txt', delimiter=',')
+
+data = np.loadtxt(path+'/data/data1.txt', delimiter=',')
 
 X = data[:, 0:2]
 y = data[:, 2]
