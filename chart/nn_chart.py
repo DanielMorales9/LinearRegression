@@ -40,3 +40,4 @@ class NNChart():
                 break
         plt.imshow(display_array, cmap="gray")
         plt.show()
+

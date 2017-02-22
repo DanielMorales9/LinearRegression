@@ -41,3 +41,25 @@ class FeatureAugmentation:
 
         return out[:, 1:]
 
+    @staticmethod
+    def map2(x, degree=2):
+        """
+            Maps the input features to polynomial features
+
+            :param x: numpy array or sparse matrix of shape [n_samples, n_features]
+                Dataset
+            :param degree: int, optional
+                maximum degree of the mapping, default is two.
+            :return: x: numpy array or sparse matrix
+                Mapped Feature
+        """
+        col = x.shape[1]
+        out = np.ones((x.shape[0], 1))
+
+        for i in range(1, degree + 1):
+            for n in range(col):
+                q = x[:, n] ** i
+                q = np.reshape(q, (q.shape[0], 1))
+                out = np.append(out, q, axis=1)
+
+        return out[:, 1:]

@@ -31,7 +31,6 @@ class FastLogisticRegression(LogisticRegression):
         x, f, _ = fmin_l_bfgs_b(self.cost_function, initial_theta)
 
         self.model = x
-        return x, f
 
     def cost_function(self, theta):
         """

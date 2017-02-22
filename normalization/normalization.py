@@ -70,7 +70,7 @@ class ZScoreNormalization(Normalization):
                    Scaled Training set.
         """
         if self.feature_mean is None:
-            feature_mean = np.mean(x, axis=0)
+            self.feature_mean = np.mean(x, axis=0)
 
         if self.feature_range is None:
             self.feature_range = np.std(x, axis=0)

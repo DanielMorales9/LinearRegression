@@ -1,6 +1,6 @@
 from classification import LogisticRegression
 from numpy import shape, dot, e, ones, log, sum, unique, \
-    power, zeros, reshape, concatenate, argmax
+    power, zeros, reshape, concatenate, argmax, mean
 from numpy.random import rand
 from random import random
 from scipy.optimize import fmin_l_bfgs_b
@@ -217,24 +217,16 @@ class FastNeuralNetwork(LogisticRegression):
             yy[i, y[i]] = 1
         return yy
 
-    @staticmethod
-    def compute_cost(X, y, theta, l):
+    def compute_cost(self, x, y):
         """
-            Compute the Cost J given theta and training data
-                :param X: numpy array or sparse matrix of shape [n_samples, n_features]
+            Compute the Cost J given theta and training data.
+            Must be used after method fit.
+                :param x: numpy array or sparse matrix of shape [n_samples, n_features]
                     Training data
                 :param y: numpy array of shape (n_samples,)
                     Target values
-                :param theta: numpy array
-                    Neural Network model
-                :param l: float, optional - default is zero
-                    Lambda value for Regularization term
-
                 :return: j: float
                     value of cost function for logistic regression
         """
-        nn = FastNeuralNetwork()
-        nn.X = FastNeuralNetwork.reshape_training_set(X)
-        nn.y = FastNeuralNetwork.reshape_labels(y)
-        j, _ = nn.cost_function(theta)
-        return j
+        predictions = self.predict(x)
+        return mean(predictions != y) / 2
