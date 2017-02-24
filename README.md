@@ -1,5 +1,5 @@
 # Machine Learning Suite
-Simple machine learing algorithms.
+Simple machine learning algorithms.
 
 ### Regression
 

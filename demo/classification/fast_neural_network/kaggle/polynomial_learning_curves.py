@@ -25,8 +25,8 @@ error_val = array([])
 examples = range(2100, idx_train+1, 2100)
 
 for i in examples:
-    fnn.fit(x_train[:i, :], y[:i], 100)
-    j_train = fnn.compute_cost(x_train[:i, :], y[:i])
+    fnn.fit(x_train[:i, :], y_train[:i], 100)
+    j_train = fnn.compute_cost(x_train[:i, :], y_train[:i])
     error_train = append(error_train, j_train)
     j_val = fnn.compute_cost(x_val, y_val)
     error_val = append(error_val, j_val)

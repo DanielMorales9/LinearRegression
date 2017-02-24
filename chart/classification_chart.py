@@ -17,6 +17,8 @@ class ClassificationChart(Chart):
                 :param clf: Classifier instance
                     Classifier should already be trained
                 :param test: numpy array of shape [n_samples, n_targets]
+                :param z: numpy array
+                    3D Decision bundary
                 :param axis1: int, optional
                     Index of the first axis (feature) to plot
                 :param axis2: int, optional
