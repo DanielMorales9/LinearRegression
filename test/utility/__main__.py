@@ -1,7 +1,8 @@
 import unittest
 from test.utility.feature_augmentation_test import FeatureAugmentationTest
+from test.utility.pca_test import PCATest
 
-test_classes_to_run = [FeatureAugmentationTest]
+test_classes_to_run = [FeatureAugmentationTest, PCATest]
 def create_suite():
     loader = unittest.TestLoader()
 
